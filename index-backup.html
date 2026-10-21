@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My First Page</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding-top: 100px;
+        transition: background-color 0.3s;
+      }
+      button {
+        font-size: 20px;
+        padding: 10px 20px;
+      }
+      li {
+        cursor: pointer;
+      }
+      li:hover {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, world</h1>
+    <p id="message">I am building this myself.</p>
+    <button id="myButton">Click me</button>
+    <div style="margin-top: 40px">
+      <input type="text" id="taskInput" placeholder="Add a task" />
+      <button id="AddButton">Add</button>
+      <ul id="taskList"></ul>
+    </div>
+    <button id="clearButton">Clear all</button>
+    <script>
+      const button = document.getElementById("myButton");
+      const message = document.getElementById("message");
+      let count = 0;
+
+      button.addEventListener("click", function () {
+        count = count + 1;
+        message.textContent = "Clicked " + count + " times";
+        document.body.style.backgroundColor = "lightblue";
+      });
+
+      const taskInput = document.getElementById("taskInput");
+      const AddButton = document.getElementById("AddButton");
+      const taskList = document.getElementById("taskList");
+      const clearButton = document.getElementById("clearButton");
+
+      function addTask(text) {
+        const item = document.createElement("li");
+        item.textContent = text;
+
+        item.addEventListener("click", function () {
+          item.remove();
+          saveTasks();
+        });
+
+        taskList.appendChild(item);
+      }
+
+      function saveTasks() {
+        const items = taskList.querySelectorAll("li");
+        const tasks = [];
+        items.forEach(function (item) {
+          tasks.push(item.textContent);
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+
+      function handleAdd() {
+        const text = taskInput.value.trim();
+        if (text === "") {
+          return;
+        }
+        addTask(text);
+        taskInput.value = "";
+        saveTasks();
+      }
+
+      AddButton.addEventListener("click", handleAdd);
+
+      taskInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          handleAdd();
+        }
+      });
+
+      clearButton.addEventListener("click", function () {
+        taskList.replaceChildren();
+        saveTasks();
+      });
+
+      const saved = localStorage.getItem("tasks");
+      if (saved) {
+        JSON.parse(saved).forEach(function (text) {
+          addTask(text);
+        });
+      }
+    </script>
+  </body>
+</html>
