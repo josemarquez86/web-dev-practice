@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 100px;
+  transition: background-color 0.3s;
+}
+button {
+  font-size: 20px;
+  padding: 10px 20px;
+}
+.card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.row {
+  display: flex;
+  gap: 10px;
+}
+input {
+  flex: 1;
+  min-width: 0;
+  font-size: 20px;
+  padding: 10px;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+li:hover {
+  text-decoration: line-through;
+}
+#result {
+  margin-top: 20px;
+}
+#result img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50px;
+}
